@@ -310,7 +310,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function fetchCTFtimeData() {
         try {
-            const response = await fetch(`https://ctftime.org/api/v1/teams/${CTFTIME_TEAM_ID}/`);
+            // Use CORS proxy to bypass CORS restrictions
+            const apiUrl = `https://ctftime.org/api/v1/teams/${CTFTIME_TEAM_ID}/`;
+            const corsProxy = 'https://api.allorigins.win/raw?url=';
+            const response = await fetch(corsProxy + encodeURIComponent(apiUrl));
 
             if (!response.ok) {
                 throw new Error('Failed to fetch CTFtime data');
