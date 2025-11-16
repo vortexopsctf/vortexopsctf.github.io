@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Tryna crack? - v1t CTF 2025 | VortexOps CTF Team</title>
+    <meta name="title" content="Tryna crack? - v1t CTF 2025 | VortexOps CTF Team">
+    <meta name="description" content="Forensics challenge writeup: Extracting hidden data from an encrypted ZIP file using plaintext attacks, PNG metadata analysis, and steganography techniques.">
+    <meta name="keywords" content="CTF writeup, forensics, ZIP encryption, plaintext attack, PNG metadata, steganography, v1t CTF">
+    <meta name="author" content="VortexOps CTF Team">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vortexopsctf.github.io/writeups/v1t-ctf-2025/tryna-crack/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://vortexopsctf.github.io/writeups/v1t-ctf-2025/tryna-crack/">
+    <meta property="og:title" content="Tryna crack? - v1t CTF 2025 | VortexOps">
+    <meta property="og:description" content="Forensics challenge writeup: Extracting hidden data from an encrypted ZIP file using plaintext attacks, PNG metadata analysis, and steganography.">
+    <meta property="og:image" content="https://vortexopsctf.github.io/assets/images/logo.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://vortexopsctf.github.io/writeups/v1t-ctf-2025/tryna-crack/">
+    <meta name="twitter:title" content="Tryna crack? - v1t CTF 2025">
+    <meta name="twitter:description" content="Forensics challenge writeup featuring ZIP plaintext attacks and PNG steganography.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../../../assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/images/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        .writeup-content {
+            background: rgba(14, 16, 24, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 3rem 0;
+            min-height: 70vh;
+        }
+
+        .writeup-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .writeup-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .writeup-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .writeup-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .writeup-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 20px;
+            color: #8b5cf6;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .writeup-body {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+        }
+
+        .writeup-body h2 {
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1.5rem;
+            color: #fff;
+            border-left: 4px solid #8b5cf6;
+            padding-left: 1rem;
+        }
+
+        .writeup-body h3 {
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .writeup-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .writeup-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .writeup-body code {
+            background: rgba(139, 92, 246, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #06b6d4;
+        }
+
+        .writeup-body pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .writeup-body pre code {
+            background: none;
+            padding: 0;
+            color: #06b6d4;
+        }
+
+        .writeup-body a {
+            color: #06b6d4;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .writeup-body a:hover {
+            border-bottom-color: #06b6d4;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #8b5cf6;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .flag-box {
+            background: rgba(6, 182, 212, 0.1);
+            border-left: 4px solid #06b6d4;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .flag-box code {
+            color: #06b6d4;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="../../../index.html" class="nav-brand">
+                <img src="../../../assets/images/logo.png" alt="VortexOps Logo" class="logo">
+                <h1>VortexOps</h1>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="../../../index.html">Home</a></li>
+                <li><a href="../../../writeups.html">Writeups</a></li>
+                <li><a href="../../../team.html">Team</a></li>
+                <li><a href="https://ctftime.org/team/409168" target="_blank">CTFtime</a></li>
+                <li><a href="../../../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="writeup-content">
+        <div class="writeup-container">
+            <a href="../../../writeups.html" class="back-link">← Back to all writeups</a>
+
+            <div class="writeup-header">
+                <h1>Tryna crack?</h1>
+                <div class="writeup-meta">
+                    <span><span class="category-badge">Forensics</span></span>
+                    <span>📅 v1t CTF 2025</span>
+                    <span>⭐ Easy</span>
+                </div>
+            </div>
+
+            <div class="writeup-body">
+                <h2>Challenge Description</h2>
+                <p>Easy peasy</p>
+
+                <h2>Challenge Content</h2>
+                <p>A single encrypted ZIP file containing a PNG called <code>quackquackquack.png</code></p>
+
+                <h2>Analyzing the File</h2>
+                <img src="img/analyze.png" alt="Initial file analysis">
+                <p>The ZIP file is encrypted but not deflated, making it vulnerable to a known plaintext attack.</p>
+
+                <h2>Extracting the PNG</h2>
+                <p>Reference: <a href="https://wiki.anter.dev/misc/plaintext-attack-zipcrypto/#executing-the-plaintext-attack" target="_blank">Plaintext Attack on ZipCrypto</a></p>
+
+                <p>Using <code>bkcrack</code> with knowledge of the PNG header and footer structure:</p>
+
+                <img src="img/png_header.png" alt="PNG file header structure">
+                <img src="img/extracting_the_png.png" alt="Extracting the PNG using bkcrack">
+                <img src="img/flag.png" alt="Initial flag attempt">
+
+                <h2>Analyzing the PNG</h2>
+                <img src="img/analyze_png.png" alt="PNG metadata analysis">
+
+                <p>The user comment field contains what appears to be a password:</p>
+                <p><code>D4mn_br0_H0n3y_p07_7yp3_5h1d</code></p>
+
+                <p>Wrapping it as <code>v1t{D4mn_br0_H0n3y_p07_7yp3_5h1d}</code> yields an incorrect flag.</p>
+
+                <p>One of the organizers mentioned "breaking the limits" - suggesting we should check for out-of-bounds data.</p>
+
+                <h2>Finding Hidden Data</h2>
+                <p>Using a Python script to check for false width/height values in the PNG:</p>
+                <img src="img/fix_png.png" alt="Fixing PNG dimensions to reveal hidden data">
+
+                <p>Morse code appears at the bottom of the corrected image, which decodes to: <strong>SHA512</strong></p>
+
+                <h2>Solution</h2>
+                <p>The flag is the SHA512 hash of the password:</p>
+
+                <div class="flag-box">
+                    <strong>Flag:</strong><br>
+                    <code>v1t{7083748baa3a42dc0a93811e4f5150e7ae1a050a0929f8c304f707c8c44fc95d86c476d11c9e56709edc30eba5f2d82396f426d93870b56b1a9573eaac8d0373}</code>
+                </div>
+
+                <h2>Key Techniques</h2>
+                <ul>
+                    <li><strong>Plaintext Attack on ZIP Encryption:</strong> Exploiting encrypted but not deflated ZIP files using known PNG file structure</li>
+                    <li><strong>PNG Metadata Extraction:</strong> Finding hidden passwords in image metadata fields</li>
+                    <li><strong>Image Dimension Manipulation:</strong> Detecting and correcting falsified PNG dimensions to reveal hidden content</li>
+                    <li><strong>Morse Code Decoding:</strong> Extracting and decoding steganographic morse code</li>
+                    <li><strong>Hash Functions:</strong> Using SHA512 to transform the discovered password into the final flag</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 VortexOps CTF Team. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../../../assets/js/main.js"></script>
+</body>
+</html>
