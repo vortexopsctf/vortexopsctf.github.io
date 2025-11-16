@@ -13,17 +13,17 @@ async function fetchCTFEvents() {
 
     try {
         // CTFtime API endpoint for upcoming events
-        const response = await fetch('https://ctftime.org/api/v1/events/', {
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
+        // Use CORS proxy to bypass CORS restrictions
+        const apiUrl = 'https://ctftime.org/api/v1/events/';
+        const corsProxy = 'https://api.allorigins.win/get?url=';
+        const response = await fetch(corsProxy + encodeURIComponent(apiUrl));
 
         if (!response.ok) {
             throw new Error('Failed to fetch events');
         }
 
-        const events = await response.json();
+        const wrapper = await response.json();
+        const events = JSON.parse(wrapper.contents);
         allEvents = events;
 
         loadingElement.style.display = 'none';
