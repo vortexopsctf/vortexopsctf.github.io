@@ -17,6 +17,19 @@
     --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
+/* Light mode color scheme */
+[data-theme="light"] {
+    --primary-color: #00cc6a;
+    --secondary-color: #0066cc;
+    --dark-bg: #f5f7fa;
+    --darker-bg: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--dark-bg);
@@ -100,6 +113,72 @@ body {
     background-color: var(--primary-color);
     margin: 3px 0;
     transition: 0.3s;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+    transform: scale(1.05);
+}
+
+.theme-toggle svg {
+    width: 24px;
+    height: 24px;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover svg {
+    transform: rotate(180deg);
+}
+
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle .icon-sun {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+}
+
+.theme-toggle .icon-moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="light"] .theme-toggle .icon-sun {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="light"] .theme-toggle .icon-moon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+}
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 /* Hero Section */
@@ -1103,6 +1182,48 @@ footer p {
     line-height: 1.6;
 }
 
+/* Light mode adjustments */
+[data-theme="light"] .hero::before {
+    background: radial-gradient(circle, rgba(0, 204, 106, 0.08) 0%, transparent 70%);
+}
+
+[data-theme="light"] .hero-logo-bg {
+    opacity: 0.03;
+}
+
+[data-theme="light"] .navbar {
+    background-color: var(--darker-bg);
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .btn-primary:hover {
+    box-shadow: 0 0 20px rgba(0, 204, 106, 0.3);
+}
+
+[data-theme="light"] .btn-secondary:hover {
+    box-shadow: 0 0 20px rgba(0, 102, 204, 0.3);
+}
+
+[data-theme="light"] .contact-btn:hover {
+    box-shadow: 0 0 20px rgba(0, 204, 106, 0.2);
+}
+
+[data-theme="light"] .event-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 204, 106, 0.15);
+}
+
+[data-theme="light"] .theme-toggle:hover {
+    box-shadow: 0 0 15px rgba(0, 204, 106, 0.2);
+}
+
+[data-theme="light"] .card-bg,
+[data-theme="light"] .stat-card,
+[data-theme="light"] .writeup-card,
+[data-theme="light"] .member-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .hamburger {
@@ -1111,6 +1232,15 @@ footer p {
 
     .nav-menu {
         display: none;
+    }
+
+    .nav-controls {
+        gap: 0.5rem;
+    }
+
+    .theme-toggle {
+        width: 45px;
+        height: 45px;
     }
 
     .hero h1 {
