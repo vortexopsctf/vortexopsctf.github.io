@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>CTF Calendar | VortexOps CTF Team</title>
+    <meta name="title" content="CTF Calendar | VortexOps CTF Team">
+    <meta name="description" content="Upcoming Capture The Flag competitions and events. Stay updated with the latest CTF schedules, registration deadlines, and event details.">
+    <meta name="keywords" content="CTF calendar, CTF events, upcoming CTFs, CTF schedule, cybersecurity competitions, hacking competitions, CTFtime events">
+    <meta name="author" content="VortexOps CTF Team">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vortexopsctf.github.io/calendar.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vortexopsctf.github.io/calendar.html">
+    <meta property="og:title" content="CTF Calendar | VortexOps CTF Team">
+    <meta property="og:description" content="Upcoming Capture The Flag competitions and events. Stay updated with the latest CTF schedules, registration deadlines, and event details.">
+    <meta property="og:image" content="https://vortexopsctf.github.io/assets/images/logo.png">
+    <meta property="og:site_name" content="VortexOps CTF">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://vortexopsctf.github.io/calendar.html">
+    <meta name="twitter:title" content="CTF Calendar | VortexOps CTF Team">
+    <meta name="twitter:description" content="Upcoming Capture The Flag competitions and events. Stay updated with the latest CTF schedules, registration deadlines, and event details.">
+    <meta name="twitter:image" content="https://vortexopsctf.github.io/assets/images/logo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="shortcut icon" href="assets/images/favicon.svg">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <img src="assets/images/logo.png" alt="VortexOps Logo" class="logo">
+                <h1>VortexOps</h1>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="https://ctftime.org/team/409168" target="_blank">CTFtime</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="calendar-header">
+        <div class="container">
+            <h1>CTF Calendar</h1>
+            <p>Upcoming Capture The Flag competitions and events</p>
+        </div>
+    </section>
+
+    <section class="calendar-filters">
+        <div class="container">
+            <div class="filter-group">
+                <label>Filter by Format:</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-format="all">All Events</button>
+                    <button class="filter-btn" data-format="online">Online</button>
+                    <button class="filter-btn" data-format="onsite">On-Site</button>
+                </div>
+            </div>
+            <div class="filter-group">
+                <label>Show:</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-timeframe="upcoming">Upcoming</button>
+                    <button class="filter-btn" data-timeframe="this-month">This Month</button>
+                    <button class="filter-btn" data-timeframe="all">All</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="calendar-content">
+        <div class="container">
+            <div id="calendar-loading" class="calendar-loading">
+                <div class="loader"></div>
+                <p>Loading upcoming CTF events...</p>
+            </div>
+
+            <div id="calendar-error" class="calendar-error" style="display: none;">
+                <p>Unable to load events. Please try again later or visit <a href="https://ctftime.org/event/list/upcoming" target="_blank">CTFtime directly</a>.</p>
+            </div>
+
+            <div id="calendar-grid" class="calendar-grid">
+                <!-- Events will be dynamically inserted here -->
+            </div>
+
+            <div id="calendar-empty" class="calendar-empty" style="display: none;">
+                <p>No events found matching your filters.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="calendar-info">
+        <div class="container">
+            <h2>About CTF Events</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>What is a CTF?</h3>
+                    <p>Capture The Flag (CTF) competitions are cybersecurity challenges where participants solve security-related tasks to find hidden "flags" and earn points.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Event Formats</h3>
+                    <p><strong>Jeopardy:</strong> Solve challenges in various categories<br>
+                    <strong>Attack-Defense:</strong> Defend your services while attacking others<br>
+                    <strong>Mixed:</strong> Combination of both formats</p>
+                </div>
+                <div class="info-card">
+                    <h3>How to Participate</h3>
+                    <p>Click on any event to visit its CTFtime page. Register through the official event website, join our team, and start solving challenges!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 VortexOps CTF Team. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/calendar.js"></script>
+</body>
+</html>
