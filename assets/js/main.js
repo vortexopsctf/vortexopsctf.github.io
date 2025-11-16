@@ -305,12 +305,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const rankingCard = document.getElementById('ranking-card');
     const eventsContainer = document.getElementById('events-container');
 
-    if (rankingCard) {
+    // Fetch data once and use it for both sections
+    if (rankingCard || eventsContainer) {
         fetchCTFtimeData();
-    }
-
-    if (eventsContainer) {
-        fetchCTFtimeEvents();
     }
 
     async function fetchCTFtimeData() {
@@ -327,10 +324,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const wrapper = await response.json();
             const data = JSON.parse(wrapper.contents);
-            displayRankingData(data);
+
+            // Use the same data for both sections
+            if (rankingCard) {
+                displayRankingData(data);
+            }
+            if (eventsContainer) {
+                displayCTFEvents(data);
+            }
         } catch (error) {
             console.error('Error fetching CTFtime data:', error);
-            displayRankingError();
+            if (rankingCard) {
+                displayRankingError();
+            }
+            if (eventsContainer) {
+                displayEventsError();
+            }
         }
     }
 
@@ -419,29 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 
-    // Fetch CTF Events
-    async function fetchCTFtimeEvents() {
-        try {
-            const currentYear = new Date().getFullYear();
-            const apiUrl = `https://ctftime.org/api/v1/teams/${CTFTIME_TEAM_ID}/`;
-            const corsProxy = 'https://api.allorigins.win/get?url=';
-            const response = await fetch(corsProxy + encodeURIComponent(apiUrl));
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch CTFtime events');
-            }
-
-            const wrapper = await response.json();
-            const data = JSON.parse(wrapper.contents);
-
-            // Get events from rating data (CTFtime stores events per year in rating object)
-            displayCTFEvents(data);
-        } catch (error) {
-            console.error('Error fetching CTFtime events:', error);
-            displayEventsError();
-        }
-    }
-
+    // Display CTF Events (called from fetchCTFtimeData)
     function displayCTFEvents(data) {
         const currentYear = new Date().getFullYear();
 
