@@ -303,9 +303,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // CTFtime API Integration
     const CTFTIME_TEAM_ID = 409168;
     const rankingCard = document.getElementById('ranking-card');
+    const eventsContainer = document.getElementById('events-container');
 
     if (rankingCard) {
         fetchCTFtimeData();
+    }
+
+    if (eventsContainer) {
+        fetchCTFtimeEvents();
     }
 
     async function fetchCTFtimeData() {
@@ -409,6 +414,97 @@ document.addEventListener('DOMContentLoaded', function() {
         rankingCard.innerHTML = `
             <div class="ranking-error">
                 <p>Unable to load ranking data. Please visit our CTFtime profile for the latest information.</p>
+                <a href="https://ctftime.org/team/${CTFTIME_TEAM_ID}" target="_blank" class="btn btn-secondary">View on CTFtime</a>
+            </div>
+        `;
+    }
+
+    // Fetch CTF Events
+    async function fetchCTFtimeEvents() {
+        try {
+            const currentYear = new Date().getFullYear();
+            const apiUrl = `https://ctftime.org/api/v1/teams/${CTFTIME_TEAM_ID}/`;
+            const corsProxy = 'https://api.allorigins.win/get?url=';
+            const response = await fetch(corsProxy + encodeURIComponent(apiUrl));
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch CTFtime events');
+            }
+
+            const wrapper = await response.json();
+            const data = JSON.parse(wrapper.contents);
+
+            // Get events from rating data (CTFtime stores events per year in rating object)
+            displayCTFEvents(data);
+        } catch (error) {
+            console.error('Error fetching CTFtime events:', error);
+            displayEventsError();
+        }
+    }
+
+    function displayCTFEvents(data) {
+        const currentYear = new Date().getFullYear();
+
+        // Collect all events from all years
+        let allEvents = [];
+
+        if (data.rating) {
+            Object.keys(data.rating).forEach(year => {
+                const yearData = data.rating[year];
+                if (yearData.rating_points > 0) {
+                    allEvents.push({
+                        year: year,
+                        place: yearData.rating_place,
+                        points: yearData.rating_points
+                    });
+                }
+            });
+        }
+
+        // Sort by year (newest first)
+        allEvents.sort((a, b) => b.year - a.year);
+
+        if (allEvents.length === 0) {
+            eventsContainer.innerHTML = `
+                <div class="no-events">
+                    <p>No CTF competitions recorded yet. Check back soon!</p>
+                </div>
+            `;
+            return;
+        }
+
+        let eventsHTML = '<div class="events-grid">';
+
+        allEvents.forEach(event => {
+            const isCurrent = event.year == currentYear;
+            eventsHTML += `
+                <div class="event-card ${isCurrent ? 'current-year' : ''}">
+                    <div class="event-header">
+                        <h3>${event.year} Season</h3>
+                        ${isCurrent ? '<span class="current-badge">Current</span>' : ''}
+                    </div>
+                    <div class="event-stats">
+                        <div class="event-stat">
+                            <span class="stat-value">#${event.place || 'N/A'}</span>
+                            <span class="stat-name">Global Rank</span>
+                        </div>
+                        <div class="event-stat">
+                            <span class="stat-value">${event.points.toFixed(2)}</span>
+                            <span class="stat-name">Rating Points</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        eventsHTML += '</div>';
+        eventsContainer.innerHTML = eventsHTML;
+    }
+
+    function displayEventsError() {
+        eventsContainer.innerHTML = `
+            <div class="events-error">
+                <p>Unable to load competition history. Please visit our CTFtime profile.</p>
                 <a href="https://ctftime.org/team/${CTFTIME_TEAM_ID}" target="_blank" class="btn btn-secondary">View on CTFtime</a>
             </div>
         `;
