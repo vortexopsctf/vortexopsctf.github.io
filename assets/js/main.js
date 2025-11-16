@@ -299,4 +299,113 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
+
+    // CTFtime API Integration
+    const CTFTIME_TEAM_ID = 409168;
+    const rankingCard = document.getElementById('ranking-card');
+
+    if (rankingCard) {
+        fetchCTFtimeData();
+    }
+
+    async function fetchCTFtimeData() {
+        try {
+            const response = await fetch(`https://ctftime.org/api/v1/teams/${CTFTIME_TEAM_ID}/`);
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch CTFtime data');
+            }
+
+            const data = await response.json();
+            displayRankingData(data);
+        } catch (error) {
+            console.error('Error fetching CTFtime data:', error);
+            displayRankingError();
+        }
+    }
+
+    function displayRankingData(data) {
+        const currentYear = new Date().getFullYear();
+        const yearRating = data.rating?.[currentYear] || null;
+
+        let rankingHTML = `
+            <div class="ranking-stats">
+                <div class="ranking-stat">
+                    <h3>${data.name}</h3>
+                    <p class="stat-label">Team Name</p>
+                </div>
+        `;
+
+        if (yearRating) {
+            rankingHTML += `
+                <div class="ranking-stat">
+                    <h3 class="stat-highlight">#${yearRating.rating_place || 'N/A'}</h3>
+                    <p class="stat-label">${currentYear} Global Rank</p>
+                </div>
+                <div class="ranking-stat">
+                    <h3>${yearRating.rating_points?.toFixed(2) || '0.00'}</h3>
+                    <p class="stat-label">Rating Points</p>
+                </div>
+            `;
+        } else {
+            rankingHTML += `
+                <div class="ranking-stat">
+                    <h3 class="stat-highlight">Unranked</h3>
+                    <p class="stat-label">${currentYear} Status</p>
+                </div>
+                <div class="ranking-stat">
+                    <h3>0.00</h3>
+                    <p class="stat-label">Rating Points</p>
+                </div>
+            `;
+        }
+
+        if (data.country) {
+            rankingHTML += `
+                <div class="ranking-stat">
+                    <h3>${data.country}</h3>
+                    <p class="stat-label">Country</p>
+                </div>
+            `;
+        }
+
+        rankingHTML += `</div>`;
+
+        // Add historical ratings if available
+        if (data.rating && Object.keys(data.rating).length > 1) {
+            rankingHTML += `
+                <div class="rating-history">
+                    <h4>Rating History</h4>
+                    <div class="history-grid">
+            `;
+
+            const years = Object.keys(data.rating).sort((a, b) => b - a).slice(0, 3);
+            years.forEach(year => {
+                const rating = data.rating[year];
+                rankingHTML += `
+                    <div class="history-item">
+                        <span class="history-year">${year}</span>
+                        <span class="history-rank">#${rating.rating_place || 'N/A'}</span>
+                        <span class="history-points">${rating.rating_points?.toFixed(2) || '0.00'} pts</span>
+                    </div>
+                `;
+            });
+
+            rankingHTML += `
+                    </div>
+                </div>
+            `;
+        }
+
+        rankingCard.innerHTML = rankingHTML;
+    }
+
+    function displayRankingError() {
+        rankingCard.innerHTML = `
+            <div class="ranking-error">
+                <p>Unable to load ranking data. Please visit our CTFtime profile for the latest information.</p>
+                <a href="https://ctftime.org/team/${CTFTIME_TEAM_ID}" target="_blank" class="btn btn-secondary">View on CTFtime</a>
+            </div>
+        `;
+    }
 });
