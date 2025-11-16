@@ -37,6 +37,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
     <link rel="shortcut icon" href="assets/images/favicon.svg">
 
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="VortexOps CTF Writeups RSS Feed" href="https://vortexopsctf.github.io/feed.xml">
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -86,8 +89,13 @@
         <div class="container">
             <div class="writeups-grid" id="writeups-grid">
                 <!-- v1t CTF 2025 - Tryna crack? -->
-                <div class="writeup-card" data-category="forensics">
+                <div class="writeup-card" data-category="forensics" data-tags="forensics,crypto,misc">
                     <div class="writeup-category">Forensics</div>
+                    <div class="writeup-tags">
+                        <span class="tag">Forensics</span>
+                        <span class="tag">Crypto</span>
+                        <span class="tag">Misc</span>
+                    </div>
                     <h3>Tryna crack?</h3>
                     <p class="writeup-meta">v1t CTF 2025 | Easy</p>
                     <p>Multi-layered forensics challenge involving ZIP plaintext attacks, PNG metadata extraction, dimension manipulation, and steganography to uncover a hidden flag.</p>
