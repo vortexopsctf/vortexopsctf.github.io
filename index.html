@@ -37,6 +37,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
     <link rel="shortcut icon" href="assets/images/favicon.svg">
 
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="VortexOps CTF Writeups RSS Feed" href="https://vortexopsctf.github.io/feed.xml">
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -83,15 +86,15 @@
             <p>We are a CTF team dedicated to competing in cybersecurity challenges, learning together, and sharing our knowledge through detailed writeups. Our focus spans web exploitation, binary exploitation, cryptography, forensics, and more.</p>
             <div class="stats">
                 <div class="stat-card">
-                    <h3 class="stat-number">0</h3>
+                    <h3 class="stat-number" id="stat-ctfs">1</h3>
                     <p>CTFs Competed</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="stat-number">0</h3>
+                    <h3 class="stat-number" id="stat-challenges">1</h3>
                     <p>Challenges Solved</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="stat-number">0</h3>
+                    <h3 class="stat-number" id="stat-writeups">1</h3>
                     <p>Writeups Published</p>
                 </div>
             </div>
@@ -136,10 +139,10 @@
             <h2>Recent Writeups</h2>
             <div class="writeups-grid">
                 <div class="writeup-card">
-                    <div class="writeup-category">Web</div>
-                    <h3>Coming Soon</h3>
-                    <p>Our first writeup will be published here soon!</p>
-                    <a href="writeups.html" class="read-more">Read More →</a>
+                    <div class="writeup-category">Forensics</div>
+                    <h3>Tryna crack?</h3>
+                    <p>Multi-layered forensics challenge involving ZIP plaintext attacks, PNG metadata extraction, dimension manipulation, and steganography.</p>
+                    <a href="writeups/v1t-ctf-2025/tryna-crack/" class="read-more">Read More →</a>
                 </div>
             </div>
         </div>

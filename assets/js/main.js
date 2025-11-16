@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Writeups Filter Functionality
+    // Writeups Filter Functionality (Multi-tag support)
     const filterButtons = document.querySelectorAll('.filter-btn');
     const writeupCards = document.querySelectorAll('.writeup-card');
 
@@ -33,9 +33,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const category = this.getAttribute('data-category');
 
-                // Filter writeup cards
+                // Filter writeup cards (supports multi-tag)
                 writeupCards.forEach(card => {
-                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                    const cardTags = card.getAttribute('data-tags');
+                    const cardCategory = card.getAttribute('data-category');
+                    let shouldShow = false;
+
+                    if (category === 'all') {
+                        shouldShow = true;
+                    } else if (cardTags) {
+                        // Check if category is in the tags list
+                        const tags = cardTags.split(',').map(tag => tag.trim().toLowerCase());
+                        shouldShow = tags.includes(category.toLowerCase());
+                    } else if (cardCategory === category) {
+                        // Fallback to data-category for backward compatibility
+                        shouldShow = true;
+                    }
+
+                    if (shouldShow) {
                         card.style.display = 'block';
                         setTimeout(() => {
                             card.style.opacity = '1';
