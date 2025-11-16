@@ -311,15 +311,17 @@ document.addEventListener('DOMContentLoaded', function() {
     async function fetchCTFtimeData() {
         try {
             // Use CORS proxy to bypass CORS restrictions
+            // AllOrigins /get endpoint wraps response in JSON with proper CORS headers
             const apiUrl = `https://ctftime.org/api/v1/teams/${CTFTIME_TEAM_ID}/`;
-            const corsProxy = 'https://api.allorigins.win/raw?url=';
+            const corsProxy = 'https://api.allorigins.win/get?url=';
             const response = await fetch(corsProxy + encodeURIComponent(apiUrl));
 
             if (!response.ok) {
                 throw new Error('Failed to fetch CTFtime data');
             }
 
-            const data = await response.json();
+            const wrapper = await response.json();
+            const data = JSON.parse(wrapper.contents);
             displayRankingData(data);
         } catch (error) {
             console.error('Error fetching CTFtime data:', error);
