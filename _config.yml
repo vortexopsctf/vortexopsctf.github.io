@@ -1,0 +1,65 @@
+# Site settings
+title: VortexOps CTF Team
+description: >-
+  Official website for the VortexOps Capture The Flag team. 
+  CTF writeups, team information, and competition history.
+url: "https://vortexopsctf.github.io"
+baseurl: ""
+email: team@vortexopsctf.github.io
+
+# Social links
+ctftime_team_id: 409168
+github_username: vortexopsctf
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /writeups/:year/:month/:day/:title/
+
+# Theme (using default GitHub Pages theme)
+theme: null
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Feed settings
+feed:
+  path: feed.xml
+  excerpt_only: false
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /writeups/:year/:month/:day/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "writeup"
+      author: "VortexOps CTF Team"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - CLAUDE.md
+  - .gemini/
+
+# Include dotfiles
+include:
+  - .htaccess
+
+# Timezone
+timezone: America/New_York

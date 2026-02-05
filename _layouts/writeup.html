@@ -1,0 +1,207 @@
+---
+layout: default
+---
+
+<style>
+    .writeup-content {
+        background: rgba(14, 16, 24, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 3rem 0;
+        min-height: 70vh;
+    }
+
+    .writeup-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .writeup-header {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .writeup-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .writeup-meta {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.95rem;
+    }
+
+    .writeup-meta span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .category-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: rgba(139, 92, 246, 0.2);
+        border: 1px solid rgba(139, 92, 246, 0.4);
+        border-radius: 20px;
+        color: #8b5cf6;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+
+    .writeup-body {
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.8;
+    }
+
+    .writeup-body h2 {
+        font-size: 1.8rem;
+        margin: 2.5rem 0 1.5rem;
+        color: #fff;
+        border-left: 4px solid #8b5cf6;
+        padding-left: 1rem;
+    }
+
+    .writeup-body h3 {
+        font-size: 1.4rem;
+        margin: 2rem 0 1rem;
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    .writeup-body p {
+        margin-bottom: 1.5rem;
+    }
+
+    .writeup-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .writeup-body code {
+        background: rgba(139, 92, 246, 0.1);
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-family: 'Monaco', 'Courier New', monospace;
+        font-size: 0.9rem;
+        color: #06b6d4;
+    }
+
+    .writeup-body pre {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .writeup-body pre code {
+        background: none;
+        padding: 0;
+        color: #06b6d4;
+    }
+
+    .writeup-body a {
+        color: #06b6d4;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s ease;
+    }
+
+    .writeup-body a:hover {
+        border-bottom-color: #06b6d4;
+    }
+
+    .writeup-body ul,
+    .writeup-body ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+    }
+
+    .writeup-body li {
+        margin-bottom: 0.5rem;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #8b5cf6;
+        text-decoration: none;
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease;
+    }
+
+    .back-link:hover {
+        transform: translateX(-5px);
+    }
+
+    .flag-box {
+        background: rgba(6, 182, 212, 0.1);
+        border-left: 4px solid #06b6d4;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 4px;
+    }
+
+    .flag-box code {
+        color: #06b6d4;
+        word-break: break-all;
+    }
+
+    .writeup-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+    }
+
+    .tag {
+        padding: 0.25rem 0.75rem;
+        background: rgba(6, 182, 212, 0.15);
+        border: 1px solid rgba(6, 182, 212, 0.3);
+        border-radius: 15px;
+        color: #06b6d4;
+        font-size: 0.8rem;
+        text-transform: capitalize;
+    }
+</style>
+
+<section class="writeup-content">
+    <div class="writeup-container">
+        <a href="{{ '/writeups.html' | relative_url }}" class="back-link">← Back to all writeups</a>
+
+        <div class="writeup-header">
+            <h1>{{ page.title }}</h1>
+            <div class="writeup-meta">
+                <span><span class="category-badge">{{ page.category }}</span></span>
+                <span>📅 {{ page.ctf }}</span>
+                {% if page.difficulty %}<span>⭐ {{ page.difficulty }}</span>{% endif %}
+                <span>🗓️ {{ page.date | date: "%b %-d, %Y" }}</span>
+            </div>
+            {% if page.tags %}
+            <div class="writeup-tags">
+                {% for tag in page.tags %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="writeup-body">
+            {{ content }}
+        </div>
+    </div>
+</section>

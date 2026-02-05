@@ -29,28 +29,58 @@ vortexopsctf.github.io/
 
 ## Development
 
-### Local Preview
+### Local Preview with Jekyll
 
-For static HTML/CSS/JS (current setup):
+The site now uses Jekyll for content management. To preview locally:
+
 ```bash
-# Using Python 3
-python -m http.server 8000
-
-# Using Node.js
-npx http-server
-```
-
-Then visit `http://localhost:8000` in your browser.
-
-### Using Jekyll (optional)
-
-If you decide to use Jekyll for blog features:
-```bash
+# First time setup - install dependencies
 bundle install
+
+# Start the Jekyll development server
 bundle exec jekyll serve
+
+# Or with live reload
+bundle exec jekyll serve --livereload
 ```
+
+Then visit `http://localhost:4000` in your browser.
+
+**Note:** If `bundle` command is not found, you may need to add Ruby's bin directory to your PATH or use the full path to bundler.
+
+## Adding CTF Writeups
+
+Jekyll makes it easy to publish new writeups - just create a markdown file!
+
+### Quick Start
+
+1. Create a new file in the `_posts/` directory:
+   ```
+   _posts/YYYY-MM-DD-ctf-name-challenge-name.md
+   ```
+
+2. Add frontmatter at the top:
+   ```yaml
+   ---
+   layout: writeup
+   title: "Challenge Name"
+   ctf: "CTF Name YYYY"
+   category: forensics
+   tags: [forensics, crypto, steganography]
+   difficulty: Easy
+   date: 2025-01-13
+   description: "Brief description of the challenge"
+   ---
+   ```
+
+3. Write your writeup in markdown below the frontmatter
+
+4. Save and commit - GitHub Pages will automatically build and publish!
+
+See `_posts/README.md` for more detailed instructions and examples.
 
 ## Deployment
+
 
 This site is automatically deployed via GitHub Pages:
 - **Source Branch**: `main`
