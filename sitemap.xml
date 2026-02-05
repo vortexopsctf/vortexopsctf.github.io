@@ -13,10 +13,11 @@
     </url>
 
     <!-- Writeups Hub -->
+    <!-- Writeups Hub -->
     <url>
-        <loc>https://vortexopsctf.github.io/writeups.html</loc>
-        <lastmod>2025-01-13</lastmod>
-        <changefreq>weekly</changefreq>
+        <loc>https://vortexopsctf.github.io/writeups/</loc>
+        <lastmod>2026-02-05</lastmod>
+        <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
 

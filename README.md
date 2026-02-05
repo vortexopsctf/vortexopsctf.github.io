@@ -15,7 +15,7 @@ This repository contains the source code for the VortexOps CTF team website, fea
 ```
 vortexopsctf.github.io/
 ├── index.html          # Landing page
-├── writeups.html       # CTF writeups page
+├── writeups.html       # Writeups listing (Jekyll layout)
 ├── team.html          # Team members page
 ├── assets/
 │   ├── css/

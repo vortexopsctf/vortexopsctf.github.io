@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
     <!-- Primary Meta Tags -->
     <title>404 - Page Not Found | VortexOps CTF Team</title>
     <meta name="title" content="404 - Page Not Found | VortexOps CTF Team">
-    <meta name="description" content="The page you're looking for doesn't exist. Return to VortexOps CTF Team homepage.">
+    <meta name="description"
+        content="The page you're looking for doesn't exist. Return to VortexOps CTF Team homepage.">
     <meta name="robots" content="noindex, nofollow">
 
     <!-- Favicon -->
@@ -74,24 +76,32 @@
         }
 
         @keyframes glitch {
-            0%, 100% {
+
+            0%,
+            100% {
                 text-shadow: 0 0 10px var(--primary-color);
             }
+
             25% {
                 text-shadow: -2px 0 10px var(--primary-color), 2px 2px 10px var(--secondary-color);
             }
+
             50% {
                 text-shadow: 2px -2px 10px var(--secondary-color), -2px 2px 10px var(--primary-color);
             }
+
             75% {
                 text-shadow: -2px -2px 10px var(--primary-color), 2px 0 10px var(--secondary-color);
             }
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0px);
             }
+
             50% {
                 transform: translateY(-20px);
             }
@@ -113,6 +123,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="error-container">
         <div class="error-content">
@@ -124,7 +135,7 @@
             </p>
             <div class="error-links">
                 <a href="index.html" class="btn btn-primary">Return Home</a>
-                <a href="writeups.html" class="btn btn-secondary">View Writeups</a>
+                <a href="writeups/" class="btn btn-secondary">View Writeups</a>
                 <a href="calendar.html" class="btn btn-secondary">CTF Calendar</a>
             </div>
         </div>
@@ -163,4 +174,5 @@
         }, 2000);
     </script>
 </body>
+
 </html>
