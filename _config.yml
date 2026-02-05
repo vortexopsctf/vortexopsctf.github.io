@@ -30,12 +30,6 @@ feed:
   path: feed.xml
   excerpt_only: false
 
-# Collections
-collections:
-  posts:
-    output: true
-    permalink: /writeups/:year/:month/:day/:title/
-
 # Defaults
 defaults:
   - scope:
