@@ -20,7 +20,7 @@ Objective: Decrypt the flag from `output.txt` by reversing the provided python s
 
 The challenge provides a python script `xord.py` and an encrypted file `output.txt`.
 
-```
+```python
 import random
 
 # ...
@@ -58,7 +58,7 @@ Since XOR is a symmetric operation (A⊕B=C⟹C⊕B=A), and we can reproduce the
 # Solution Script
 The following script (`solve.py`) implements the decryption:
 
-```
+```python
 import random
 
 def solve():

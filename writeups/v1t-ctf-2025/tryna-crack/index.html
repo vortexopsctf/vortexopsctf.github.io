@@ -1,5 +1,8 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +10,10 @@
     <!-- Primary Meta Tags -->
     <title>Tryna crack? - v1t CTF 2025 | VortexOps CTF Team</title>
     <meta name="title" content="Tryna crack? - v1t CTF 2025 | VortexOps CTF Team">
-    <meta name="description" content="Forensics challenge writeup: Extracting hidden data from an encrypted ZIP file using plaintext attacks, PNG metadata analysis, and steganography techniques.">
-    <meta name="keywords" content="CTF writeup, forensics, ZIP encryption, plaintext attack, PNG metadata, steganography, v1t CTF">
+    <meta name="description"
+        content="Forensics challenge writeup: Extracting hidden data from an encrypted ZIP file using plaintext attacks, PNG metadata analysis, and steganography techniques.">
+    <meta name="keywords"
+        content="CTF writeup, forensics, ZIP encryption, plaintext attack, PNG metadata, steganography, v1t CTF">
     <meta name="author" content="VortexOps CTF Team">
     <meta name="robots" content="index, follow">
 
@@ -19,14 +24,16 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://vortexopsctf.github.io/writeups/v1t-ctf-2025/tryna-crack/">
     <meta property="og:title" content="Tryna crack? - v1t CTF 2025 | VortexOps">
-    <meta property="og:description" content="Forensics challenge writeup: Extracting hidden data from an encrypted ZIP file using plaintext attacks, PNG metadata analysis, and steganography.">
+    <meta property="og:description"
+        content="Forensics challenge writeup: Extracting hidden data from an encrypted ZIP file using plaintext attacks, PNG metadata analysis, and steganography.">
     <meta property="og:image" content="https://vortexopsctf.github.io/assets/images/logo.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://vortexopsctf.github.io/writeups/v1t-ctf-2025/tryna-crack/">
     <meta name="twitter:title" content="Tryna crack? - v1t CTF 2025">
-    <meta name="twitter:description" content="Forensics challenge writeup featuring ZIP plaintext attacks and PNG steganography.">
+    <meta name="twitter:description"
+        content="Forensics challenge writeup featuring ZIP plaintext attacks and PNG steganography.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="../../../assets/images/favicon.svg">
@@ -142,7 +149,7 @@
         .writeup-body pre code {
             background: none;
             padding: 0;
-            color: #06b6d4;
+            color: inherit;
         }
 
         .writeup-body a {
@@ -184,6 +191,7 @@
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar">
         <div class="container">
@@ -231,7 +239,9 @@
                 <p>The ZIP file is encrypted but not deflated, making it vulnerable to a known plaintext attack.</p>
 
                 <h2>Extracting the PNG</h2>
-                <p>Reference: <a href="https://wiki.anter.dev/misc/plaintext-attack-zipcrypto/#executing-the-plaintext-attack" target="_blank">Plaintext Attack on ZipCrypto</a></p>
+                <p>Reference: <a
+                        href="https://wiki.anter.dev/misc/plaintext-attack-zipcrypto/#executing-the-plaintext-attack"
+                        target="_blank">Plaintext Attack on ZipCrypto</a></p>
 
                 <p>Using <code>bkcrack</code> with knowledge of the PNG header and footer structure:</p>
 
@@ -247,13 +257,15 @@
 
                 <p>Wrapping it as <code>v1t{D4mn_br0_H0n3y_p07_7yp3_5h1d}</code> yields an incorrect flag.</p>
 
-                <p>One of the organizers mentioned "breaking the limits" - suggesting we should check for out-of-bounds data.</p>
+                <p>One of the organizers mentioned "breaking the limits" - suggesting we should check for out-of-bounds
+                    data.</p>
 
                 <h2>Finding Hidden Data</h2>
                 <p>Using a Python script to check for false width/height values in the PNG:</p>
                 <img src="img/fix_png.png" alt="Fixing PNG dimensions to reveal hidden data">
 
-                <p>Morse code appears at the bottom of the corrected image, which decodes to: <strong>SHA512</strong></p>
+                <p>Morse code appears at the bottom of the corrected image, which decodes to: <strong>SHA512</strong>
+                </p>
 
                 <h2>Solution</h2>
                 <p>The flag is the SHA512 hash of the password:</p>
@@ -265,11 +277,14 @@
 
                 <h2>Key Techniques</h2>
                 <ul>
-                    <li><strong>Plaintext Attack on ZIP Encryption:</strong> Exploiting encrypted but not deflated ZIP files using known PNG file structure</li>
+                    <li><strong>Plaintext Attack on ZIP Encryption:</strong> Exploiting encrypted but not deflated ZIP
+                        files using known PNG file structure</li>
                     <li><strong>PNG Metadata Extraction:</strong> Finding hidden passwords in image metadata fields</li>
-                    <li><strong>Image Dimension Manipulation:</strong> Detecting and correcting falsified PNG dimensions to reveal hidden content</li>
+                    <li><strong>Image Dimension Manipulation:</strong> Detecting and correcting falsified PNG dimensions
+                        to reveal hidden content</li>
                     <li><strong>Morse Code Decoding:</strong> Extracting and decoding steganographic morse code</li>
-                    <li><strong>Hash Functions:</strong> Using SHA512 to transform the discovered password into the final flag</li>
+                    <li><strong>Hash Functions:</strong> Using SHA512 to transform the discovered password into the
+                        final flag</li>
                 </ul>
             </div>
         </div>
@@ -277,10 +292,11 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 VortexOps CTF Team. All rights reserved.</p>
+            <p>&copy; {{ site.time | date: '%Y' }} VortexOps CTF Team. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="../../../assets/js/main.js"></script>
 </body>
+
 </html>
