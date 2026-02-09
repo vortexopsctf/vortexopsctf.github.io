@@ -39,6 +39,11 @@ defaults:
       layout: "writeup"
       author: "VortexOps CTF Team"
 
+  - scope:
+      path: "_blog"
+    values:
+      layout: "post"
+
 # Collections
 collections:
   blog:

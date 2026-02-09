@@ -74,15 +74,15 @@
                 {% assign sorted_posts = site.blog | sort: 'date' | reverse %}
                 {% for post in sorted_posts %}
                 {% assign is_featured = post.featured | default: post.feature %}
-                {% assign is_collapsed = post.collapsed | default: post.collapse %}
-                <article
-                    class="blog-post {% if is_featured %}featured{% endif %} {% if is_collapsed %}collapsed{% endif %}"
+                <!-- Force collapsed class to ensure preview look on index -->
+                <article class="blog-post {% if is_featured %}featured{% endif %} collapsed"
                     data-category="{{ post.category }}">
                     <div class="post-header">
                         <span class="post-category {{ post.category }}">{{ post.category | capitalize }}</span>
                         <span class="post-date">{{ post.date | date: "%B %-d, %Y" }}</span>
                     </div>
-                    <h2 class="post-title">{{ post.title }}</h2>
+                    <h2 class="post-title"><a href="{{ post.url | relative_url }}"
+                            style="text-decoration: none; color: inherit;">{{ post.title }}</a></h2>
                     <div class="post-content">
                         {{ post.content }}
                     </div>
@@ -92,9 +92,10 @@
                             <span class="tag">{{ tag }}</span>
                             {% endfor %}
                         </div>
-                        <button class="read-more-btn" onclick="togglePost(this)">
-                            {% if is_collapsed %}Read More →{% else %}Read Less →{% endif %}
-                        </button>
+                        <a href="{{ post.url | relative_url }}" class="read-more-btn"
+                            style="text-decoration: none; display: inline-block;">
+                            Read More →
+                        </a>
                     </div>
                 </article>
                 {% endfor %}
