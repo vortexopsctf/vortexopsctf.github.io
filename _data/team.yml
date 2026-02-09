@@ -1,0 +1,9 @@
+- name: Ice Cramer
+  role: Captain / Web Exploitation
+  bio: Brief bio about the team member, their interests, and specialties in CTF.
+  avatar: assets/images/logo.png
+  socials:
+    - platform: GitHub
+      url: "#"
+    - platform: Twitter
+      url: "#"

@@ -97,7 +97,8 @@ body {
     font-weight: 500;
 }
 
-.nav-menu a:hover {
+.nav-menu a:hover,
+.nav-menu a.active {
     color: var(--primary-color);
 }
 

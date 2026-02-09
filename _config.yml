@@ -39,6 +39,12 @@ defaults:
       layout: "writeup"
       author: "VortexOps CTF Team"
 
+# Collections
+collections:
+  blog:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+
 # Exclude from processing
 exclude:
   - Gemfile
