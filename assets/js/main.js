@@ -1,5 +1,5 @@
 // Mobile Navigation Toggle
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Theme Toggle Functionality
     const themeToggle = document.querySelector('.theme-toggle');
     const htmlElement = document.documentElement;
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Theme toggle button click handler
     if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
+        themeToggle.addEventListener('click', function () {
             const currentTheme = htmlElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
@@ -23,14 +23,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.querySelector('.nav-menu');
 
     if (hamburger) {
-        hamburger.addEventListener('click', function() {
+        hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
         });
 
         // Close menu when clicking on a link
         document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
                 navMenu.classList.remove('active');
                 hamburger.classList.remove('active');
             });
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (filterButtons.length > 0) {
         filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 // Remove active class from all buttons
                 filterButtons.forEach(btn => btn.classList.remove('active'));
 
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Smooth Scrolling for Anchor Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href !== '#' && href !== '') {
                 e.preventDefault();
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in');
@@ -395,6 +395,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3 class="stat-highlight">#${yearRating.rating_place || 'N/A'}</h3>
                     <p class="stat-label">${currentYear} Global Rank</p>
                 </div>
+            `;
+
+            if (yearRating.country_place) {
+                rankingHTML += `
+                <div class="ranking-stat">
+                    <h3 class="stat-highlight">#${yearRating.country_place}</h3>
+                    <p class="stat-label">${data.country || 'National'} Rank</p>
+                </div>
+                `;
+            }
+
+            rankingHTML += `
                 <div class="ranking-stat">
                     <h3>${yearRating.rating_points?.toFixed(2) || '0.00'}</h3>
                     <p class="stat-label">Rating Points</p>
@@ -465,6 +477,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display CTF Events (called from fetchCTFtimeData)
     function displayCTFEvents(data) {
         const currentYear = new Date().getFullYear();
+
+        // Update CTFs Competed Stat (Using years active as proxy since API doesn't return total event count)
+        const ctfsStat = document.getElementById('stat-ctfs');
+        if (ctfsStat && data.rating) {
+            ctfsStat.textContent = Object.keys(data.rating).length;
+            // Optional: Change label to "Years Active" if preferred
+            // ctfsStat.nextElementSibling.textContent = "Years Active";
+        }
 
         // Collect all events from all years
         let allEvents = [];

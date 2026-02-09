@@ -495,8 +495,7 @@ footer p {
 }
 
 .ranking-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: block;
     gap: 2rem;
     align-items: start;
 }

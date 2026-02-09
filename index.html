@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,7 +108,8 @@
     <section class="about" id="about">
         <div class="container">
             <h2>About VortexOps</h2>
-            <p>We are a CTF team dedicated to competing in cybersecurity challenges, learning together, and sharing our
+            <p>We are an academic team from CCNB (College communautaire du Nouveau-Brunswick) dedicated to competing in
+                cybersecurity challenges, learning together, and sharing our
                 knowledge through detailed writeups. Our focus spans web exploitation, binary exploitation,
                 cryptography, forensics, and more.</p>
             <div class="stats">
@@ -114,12 +117,9 @@
                     <h3 class="stat-number" id="stat-ctfs">2</h3>
                     <p>CTFs Competed</p>
                 </div>
+                <!-- Challenges Solved card removed -->
                 <div class="stat-card">
-                    <h3 class="stat-number" id="stat-challenges">1</h3>
-                    <p>Challenges Solved</p>
-                </div>
-                <div class="stat-card">
-                    <h3 class="stat-number" id="stat-writeups">1</h3>
+                    <h3 class="stat-number" id="stat-writeups">{{ site.posts.size }}</h3>
                     <p>Writeups Published</p>
                 </div>
             </div>
@@ -137,13 +137,7 @@
                         <p>Loading ranking data...</p>
                     </div>
                 </div>
-                <div class="ranking-info">
-                    <h3>About CTFtime</h3>
-                    <p>CTFtime is the de facto website for tracking CTF competitions and team rankings worldwide. Our
-                        ranking is based on our performance in various CTF competitions throughout the year.</p>
-                    <a href="https://ctftime.org/team/409168" target="_blank" class="btn btn-primary">View on CTFtime
-                        →</a>
-                </div>
+
             </div>
         </div>
     </section>
@@ -165,13 +159,14 @@
         <div class="container">
             <h2>Recent Writeups</h2>
             <div class="writeups-grid">
+                {% for post in site.posts limit:3 %}
                 <div class="writeup-card">
-                    <div class="writeup-category">Forensics</div>
-                    <h3>Tryna crack?</h3>
-                    <p>Multi-layered forensics challenge involving ZIP plaintext attacks, PNG metadata extraction,
-                        dimension manipulation, and steganography.</p>
-                    <a href="/writeups/2025/01/13/v1t-ctf-tryna-crack/" class="read-more">Read More →</a>
+                    <div class="writeup-category">{{ post.category | capitalize }}</div>
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.description }}</p>
+                    <a href="{{ post.url | relative_url }}" class="read-more">Read More →</a>
                 </div>
+                {% endfor %}
             </div>
         </div>
 
@@ -202,7 +197,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 VortexOps CTF Team. All rights reserved.</p>
+            <p>&copy; {{ site.time | date: '%Y' }} VortexOps CTF Team. All rights reserved.</p>
         </div>
     </footer>
 
