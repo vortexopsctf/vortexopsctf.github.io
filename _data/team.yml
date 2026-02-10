@@ -7,3 +7,13 @@
       url: "https://github.com/maximeconnolly"
     - platform: Linkedin
       url: "https://www.linkedin.com/in/maxime-connolly-2a2aa1150/"
+
+- name: Mohamed Kake Toure
+  role: Member / WEB, MISC, OSINT
+  bio: Cybersecurity student 
+  avatar: assets/images/logo.png
+  socials:
+    - platform: GitHub
+      url: "https://github.com/lilmkt12"
+    - platform: LinkedIn
+      url: "https://www.linkedin.com/in/mohamed-kake-tour%C3%A9-488942237/"
