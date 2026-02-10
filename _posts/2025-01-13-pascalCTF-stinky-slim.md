@@ -3,7 +3,7 @@ layout: writeup
 title: "Stinky Slim"
 ctf: "pascalCTF 2025"
 category: misc
-tags: [steganography, audio, spectrogram, wav, discord, osint]
+tags: [steganography, misc, audio, spectrogram, wav, discord, osint]
 difficulty: Easy
 date: 2025-01-13
 description: "Audio steganography challenge requiring spectrogram analysis and Discord interaction to retrieve the flag"
