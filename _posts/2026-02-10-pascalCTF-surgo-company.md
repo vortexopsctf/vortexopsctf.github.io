@@ -11,7 +11,7 @@ description: "Remote Code Execution vulnerability through malicious email attach
 
 ## Challenge Description
 
-![Challenge interface]({{ '/assets/images/surgo-company/challenge-description-surgo.png' | relative_url }})
+![Challenge interface]({{ '/assets/images/challenge-description-surgo.png' | relative_url }})
 
 The challenge presents an email support system where customers can submit tickets with attachments.
 
@@ -58,13 +58,13 @@ base = os.path.dirname(__main__.__file__)
 print(open(os.path.join(base, "flag.txt")).read())
 ```
 
-![Email with malicious attachment]({{ '/assets/images/surgo-company/email-attachment.png' | relative_url }})
+![Email with malicious attachment]({{ '/assets/images/email-attachment.png' | relative_url }})
 
 ### Step 4: Retrieve the Flag
 
 The code is executed server-side, and the content of `flag.txt` is displayed directly in the `nc` session.
 
-![Flag retrieved through RCE]({{ '/assets/images/surgo-company/flag-output.png' | relative_url }})
+![Flag retrieved through RCE]({{ '/assets/images/flag-output.png' | relative_url }})
 
 ## Flag
 
