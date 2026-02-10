@@ -41,7 +41,7 @@ This gives us clear instructions on how to proceed!
 
 Following the instructions from the spectrogram:
 
-1. I joined the v1t CTF Discord server
+1. I joined the pascal CTF Discord server
 2. Created a support ticket
 3. Sent the message: "I love Pascal"
 4. The CTF organizers responded with the flag
